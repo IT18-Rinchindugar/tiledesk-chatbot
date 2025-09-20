@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  # Tiledesk Chatbot Application
+  tiledesk-chatbot:
+    build: .
+    container_name: tiledesk-chatbot-app
+    restart: unless-stopped
+    ports:
+      - "4000:3000"
+    env_file:
+      - .env
+
+volumes:
+  mongodb_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  tiledesk-network:
+    driver: bridge

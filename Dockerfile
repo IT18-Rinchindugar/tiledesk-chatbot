@@ -10,9 +10,16 @@ WORKDIR /usr/src/app
 
 ARG NPM_TOKEN
 
-RUN if [ "$NPM_TOKEN" ]; \
-    then RUN COPY .npmrc_ .npmrc \
-    else export SOMEVAR=world; \
+RUN if [ "$NPM_TOKEN" ]; then \
+        echo "Using NPM_TOKEN for authentication"; \
+    else \
+        echo "No NPM_TOKEN provided"; \
+    fi
+
+# Copy .npmrc if it exists and NPM_TOKEN is provided
+COPY .npmrc_* ./
+RUN if [ "$NPM_TOKEN" ] && [ -f ".npmrc_" ]; then \
+        cp .npmrc_ .npmrc; \
     fi
 
 

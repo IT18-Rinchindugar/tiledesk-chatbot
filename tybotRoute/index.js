@@ -133,6 +133,8 @@ router.post('/ext/:botid', async (req, res) => {
     MAX_STEPS: MAX_STEPS,
     MAX_EXECUTION_TIME: MAX_EXECUTION_TIME
   });
+
+  winston.verbose("(tybotRoute) chatbot: ", chatbot)
   winston.verbose("(tybotRoute) Message text: " + message.text)
   
   await TiledeskChatbotUtil.updateRequestAttributes(chatbot, token, message, projectId, requestId);
